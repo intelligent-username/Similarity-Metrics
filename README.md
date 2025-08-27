@@ -16,32 +16,50 @@ The most commonly accepted formula for distance. Finds the continuous amount of 
 
 $d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$
 
-Here are the formulas using single dollar signs:
+Used in most of math.
 
-## 2. Manhattan Distance
+### 2. Manhattan Distance
 
 Also known as taxicab or L1 distance. Measures the sum of absolute differences between coordinates, like navigating city blocks:
 
-$d = |x_2 - x_1| + |y_2 - y_1|$
+$$
+d = |x_2 - x_1| + |y_2 - y_1|
+$$
 
 For n-dimensional space:
 
-$d = \sum_{i=1}^{n} |x_i - y_i|$
+$$
+d = \sum_{i=1}^{n} |x_i - y_i|
+$$
 
-## 3. Cosine Similarity
+Many AI-related applications. For example, it's a good heuristic in finding the shortest path to navigate through a maze. Also, it's more computationally efficient than Euclidean distance, but with similar functionality.
 
-Measures the cosine of the angle between two vectors, focusing on orientation rather than magnitude:
+### 3. Cosine Similarity
 
-$\text{cosine similarity} = \frac{\mathbf{A} \cdot \mathbf{B}}{||\mathbf{A}|| \times ||\mathbf{B}||} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}$
+The scalar projection of one vector onto another, normalizing by their lengths. In other words, the cosine similarity measures the cosine of the angle between two vectors, focusing on similarity of orientation alone.
 
-## 4. Minkowski Distance
+$$
+\text{similarity} = \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}
+$$
 
-A generalized distance metric that includes both Euclidean and Manhattan as special cases:
+This formula fuels search engines and match-making/similarity-ranking algorithms.
 
-$d = \left(\sum_{i=1}^{n} |x_i - y_i|^p\right)^{1/p}$
+### 4. Minkowski Distance
+
+A generalization of Euclidean and Manhattan distances. More useful for real-life applications. For example, in creating paths for on a map, one would not travel in a perfectly straight line, nor perfectly horizontal/vertical steps.
+
+$$
+d_p = \left(\sum_{i=1}^{n} |x_i - y_i|^p\right)^{1/p}
+$$
 
 Where:
 
 - $p = 1$: Manhattan distance
 - $p = 2$: Euclidean distance  
-- $p = \infty$: Chebyshev distance (maximum difference)
+- $p \to \infty$: Chebyshev distance (maximum difference), i.e. larger p gives more and more significance to the largest gap on any axis.
+
+- Concretely speaking,
+  If $p = 2$, that is like drawing a circle around one point and having the other point land on the circumference. This represents the most efficient possible path.
+  If $p=3$, then we draw amore 'squarish' 'radius', representing a more inefficient path between the two points (not a single, straight line). This helps account for
+
+- As $p$ increases, contours start squaring off along the axes. In 2D: circle becomes squarish with rounded corners; in nD, a hypercube-like shape
