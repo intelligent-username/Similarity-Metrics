@@ -4,7 +4,7 @@ In this repository are stored a bunch of utilities for calculating the similarit
 
 ## Applications
 
-In many different applications, embeddings are created, wherein complex data are mapped to vectors. The distances between these vectors is then used in decision-making (for example, k nearest neighbours).
+In many different applications, embeddings are created, wherein complex data are mapped to vectors. The distances between these vectors are then used in decision-making (for example, k nearest neighbours).
 
 This project should help the reader build an intuition to bridge the gap between geometric grounding and real-world utility.
 
@@ -12,7 +12,7 @@ This project should help the reader build an intuition to bridge the gap between
 
 1. Euclidean Distance
 
-The most commonly accepted formula for distance. Finds the continuous amount of space between two points. Given by the formula:
+The most commonly accepted formula for distance. Finds the continuous amount of space between two points. Given by the formula (in 2D):
 
 $d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$
 
@@ -31,6 +31,8 @@ For n-dimensional space:
 $$
 d = \sum_{i=1}^{n} |x_i - y_i|
 $$
+
+Bounded on $[-1, 1]$
 
 Many AI-related applications. For example, it's a good heuristic in finding the shortest path to navigate through a maze. Also, it's more computationally efficient than Euclidean distance, but with similar functionality.
 
@@ -60,6 +62,6 @@ Where:
 
 - Concretely speaking,
   If $p = 2$, that is like drawing a circle around one point and having the other point land on the circumference. This represents the most efficient possible path.
-  If $p=3$, then we draw amore 'squarish' 'radius', representing a more inefficient path between the two points (not a single, straight line). This helps account for
+  If $p=3$, then we draw a more 'squarish' 'radius'.
 
 - As $p$ increases, contours start squaring off along the axes. In 2D: circle becomes squarish with rounded corners; in nD, a hypercube-like shape
