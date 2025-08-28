@@ -10,7 +10,7 @@ This project should help the reader build an intuition to bridge the gap between
 
 ## Metrics
 
-1. Euclidean Distance
+### 1. Euclidean Distance
 
 The most commonly accepted formula for distance. Finds the continuous amount of space between two points. Given by the formula (in 2D):
 
@@ -65,3 +65,36 @@ Where:
   If $p=3$, then we draw a more 'squarish' 'radius'.
 
 - As $p$ increases, contours start squaring off along the axes. In 2D: circle becomes squarish with rounded corners; in nD, a hypercube-like shape
+
+### 5. Gower Distance
+
+A method of measuring the **dissimilarity** of two datapoints that contain mixed datatypes. The distance is noramlized between $0$ and $1$. $1$ is completely dissimilar and $0$ is identical.
+
+The formula for this distance is as follows:
+
+$$
+d_G(a,b) = \frac
+            {\sum_{i=1}^{n}s_i(a_i,b_i)}
+            {\sum_{i=1}^{n} w_i}
+$$
+
+Where:
+
+- $a = [a_1, a_2, \dots, a_n]$ and $b = [b_1, b_2, \dots, b_n]$ are the feature vectors of the two data points.
+
+- $n$ is the number of datapoints
+
+- $s_i(a_i,b_i)$ is the distance between two points, defined as:
+  
+   $$
+  s_i(a_i, b_i) =
+  \begin{cases}
+  \frac{|a_i - b_i|}{R_i} & \text{if feature } i \text{ is numeric} \\
+  0 & \text{if feature } i \text{ is categorical and } a_i = b_i \\
+  1 & \text{if feature } i \text{ is categorical and } a_i \neq b_i
+  \end{cases}
+  $$
+
+  - $R_i = \max(X_i) - \min(X_i)$ = range of numeric feature $i$ across the dataset $X$.
+
+- $w_i$ = weight of feature $i$: 1 if the feature is non-empty, 0 otherwise

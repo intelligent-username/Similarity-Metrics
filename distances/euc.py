@@ -23,3 +23,9 @@ def euclidean_distance(point1: np.ndarray, point2: np.ndarray) -> float:
     # Assume correct inputs
 
     return np.linalg.norm(point1 - point2)
+
+if __name__ == "__main__":
+    p1, p2 = np.array([1, 2]), np.array([4, 6])
+    print(euclidean_distance(p1, p2))  # Expect 5.0
+    p1, p2 = np.array([1+2j, 3+4j]), np.array([5+6j, 7+8j])
+    print(euclidean_distance(p1, p2))  # Expect 8.0
