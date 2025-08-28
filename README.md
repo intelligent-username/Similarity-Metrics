@@ -85,16 +85,16 @@ Where:
 - $n$ is the number of datapoints
 
 - $s_i(a_i,b_i)$ is the distance between two points, defined as:
-  
-   $$
+
+$$
   s_i(a_i, b_i) =
   \begin{cases}
   \frac{|a_i - b_i|}{R_i} & \text{if feature } i \text{ is numeric} \\
   0 & \text{if feature } i \text{ is categorical and } a_i = b_i \\
   1 & \text{if feature } i \text{ is categorical and } a_i \neq b_i
   \end{cases}
-  $$
+$$
 
-  - $R_i = \max(X_i) - \min(X_i)$ = range of numeric feature $i$ across the dataset $X$.
+- $R_i = \max(X_i) - \min(X_i)$ = range of numeric feature $i$ across the dataset $X$.
 
 - $w_i$ = weight of feature $i$: 1 if the feature is non-empty, 0 otherwise
