@@ -2,25 +2,76 @@
 
 In this repository are stored a bunch of utilities for calculating the similarity between two datapoints
 
+<!-- markdownlint-disable MD033 -->
+<img src="img/iris-3d-only.png" alt="3D Visualization of Iris Flower Database" width="400">
+
 ## Applications
 
-In many different applications, embeddings are created, wherein complex data are mapped to vectors. The distances between these vectors are then used in decision-making (for example, k nearest neighbours).
+In many different use cases, embeddings are created, wherein complex data are mapped to vectors. The distances between these vectors are then used in decision-making (for example, finding k nearest neighbours).
 
 This project should help the reader build an intuition to bridge the gap between geometric grounding and real-world utility.
 
-## Metrics
+## Usage
 
-### 1. Euclidean Distance
+### Prerequisites
 
-The most commonly accepted formula for distance. Finds the continuous amount of space between two points. Given by the formula (in 2D):
+- `Python 3.x`
+- `Jupyter Notebook` (or any Python IDE)
+
+### Setup
+
+1. Install dependencies with conda:
+
+    ```bash
+    conda env create -f environment.yml
+    conda activate similarity-metrics
+    ```
+
+    (this will install the requirements specified in `environment.yml` in a local environment)
+
+   Or with pip:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+    (this will install the requirements system-wide)
+    To only add these packages into a venv, use:
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    pip install -r requirements.txt
+    ```
+
+2. Run the Jupyter notebook to see examples
+    navigate to `demos/`
+
+    ```bash
+        cd demos
+    ```
+
+    ```bash
+        jupyter [notebook]
+    ```
+
+3. Create your own distance visualizations using custom datasets: call `distance_matrix.py` with your dataset and desired metric.
+
+## Features
+
+### Metrics
+
+#### 1. Euclidean Distance
+
+The most commonly accepted formula for distance. Used in continuous geometry. Finds the continuous amount of space between two points. Given by the formula (in 2D):
 
 $d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$
 
 Used in most of math.
 
-### 2. Manhattan Distance
+#### 2. Manhattan Distance
 
-Also known as taxicab or L1 distance. Measures the sum of absolute differences between coordinates, like navigating city blocks:
+Also known as taxicab or L1 distance. Measures the sum of absolute differences between coordinates, like navigating city blocks, most useful with sparse data:
 
 $$
 d = |x_2 - x_1| + |y_2 - y_1|
@@ -36,7 +87,7 @@ Bounded on $[-1, 1]$
 
 Many AI-related applications. For example, it's a good heuristic in finding the shortest path to navigate through a maze. Also, it's more computationally efficient than Euclidean distance, but with similar functionality.
 
-### 3. Cosine Similarity
+#### 3. Cosine Similarity
 
 The scalar projection of one vector onto another, normalizing by their lengths. In other words, the cosine similarity measures the cosine of the angle between two vectors, focusing on similarity of orientation alone.
 
@@ -46,7 +97,7 @@ $$
 
 This formula fuels search engines and match-making/similarity-ranking algorithms.
 
-### 4. Minkowski Distance
+#### 4. Minkowski Distance
 
 A generalization of Euclidean and Manhattan distances. More useful for real-life applications. For example, in creating paths for on a map, one would not travel in a perfectly straight line, nor perfectly horizontal/vertical steps.
 
@@ -85,16 +136,25 @@ Where:
 - $n$ is the number of datapoints
 
 - $s_i(a_i,b_i)$ is the distance between two points, defined as:
-  
-   $$
+
+$$
   s_i(a_i, b_i) =
   \begin{cases}
   \frac{|a_i - b_i|}{R_i} & \text{if feature } i \text{ is numeric} \\
   0 & \text{if feature } i \text{ is categorical and } a_i = b_i \\
   1 & \text{if feature } i \text{ is categorical and } a_i \neq b_i
   \end{cases}
-  $$
+$$
 
-  - $R_i = \max(X_i) - \min(X_i)$ = range of numeric feature $i$ across the dataset $X$.
+- $R_i = \max(X_i) - \min(X_i)$ = range of numeric feature $i$ across the dataset $X$.
 
 - $w_i$ = weight of feature $i$: 1 if the feature is non-empty, 0 otherwise
+
+### Visualizations
+
+![Random Points Order](img/random-points-order.png)
+
+- Visualize distance matrices using different metrics
+- Compare how different metrics behave on the same dataset
+- Understand the impact of different distance metrics on clustering and classification tasks
+- Visualize with scatter plots to compare.

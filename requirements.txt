@@ -1,6 +1,7 @@
 numpy
 matplotlib
 seaborn
-scikit-learn
 jupyter
 pandas
+plotly
+scikit-learn

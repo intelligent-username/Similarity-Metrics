@@ -34,46 +34,54 @@ def gower_distance(a: np.ndarray, b: np.ndarray, data_range) -> float:
     >>> ranges = np.array([0, 0, 0])
     >>> distance = gower_distance(a, b, ranges)
 
+    >>> a = np.array([1, 'b', 2])
+    >>> b = np.array([2, 'e', 3])
+    >>> ranges = np.array([1, 1, 1])
+    >>> distance = gower_distance(a, b, ranges)
 
     """
-    def feature_dist(c, d, i, data_range) -> float:
-        """
-        Calculates the distance between two specific features c and d.
-        """
-        if isinstance(c, (int, float)) and isinstance(d, (int, float)):
-            # Numerical feature
-            if data_range[i] == 0:
-                return 0
-            else:
-                return np.abs(c - d) / data_range[i]
-        else:
-            # Categorical feature
-            return 0 if c == d else 1
+    def is_numeric(x) -> bool:
+        return np.issubdtype(np.asarray(x).dtype, np.number)
 
-    
-    distance = 0
-    weight = 0
+    def feature_dist(c, d, i, data_range) -> float:
+        # Numerical feature
+        if is_numeric(c) and is_numeric(d):
+            if data_range[i] == 0:
+                return 0.0
+            return float(np.abs(float(c) - float(d)) / data_range[i])
+        # Categorical feature
+        return 0.0 if c == d else 1.0
+
+    distance = 0.0
+    weight = 0.0
 
     dim = a.shape[0]
     for i in range(dim):
         distance += feature_dist(a[i], b[i], i, data_range)
-        weight += 1 if a[i] is not None and b[i] is not None else 0
+        # Count feature if both present
+        if a[i] is not None and b[i] is not None:
+            weight += 1.0
 
-    return distance/weight
+    return distance / weight if weight > 0 else 0.0
 
 if __name__ == "__main__":
     p1 = np.array([1, 2, 3])
     p2 = np.array([4, 5, 6])
-    data_range = np.array([3, 3, 3])  # max - min for each feature
-    print(gower_distance(p1, p2, data_range))  # Expect 1.0
+    data_range = np.array([3, 3, 3])            # max - min for each feature gives maximum difference
+    print(gower_distance(p1, p2, data_range))   # Expect 1.0
 
     p1 = np.array([1, 'cat', 3])
     p2 = np.array([4, 'dog', 6])
-    data_range = np.array([3, 0, 3])
+    data_range = np.array([3, 0, 3])           # All data is 'as different as possible'
     print(gower_distance(p1, p2, data_range))  # Expect 1.0
 
     p1 = np.array(['a', 'b','c'])
     p2 = np.array(['a', 'b','c'])
     data_range = np.array([0, 0, 0])           # Data is identical
     print(gower_distance(p1, p2, data_range))  # Expect 0.0
+
+    p1 = np.array([1, 'b', 2])
+    p2 = np.array([2, 'e', 2])
+    data_range = np.array([1, 1, 0])
+    print(gower_distance(p1, p2, data_range))  # Expect 0.67 (2/3 are different)
 

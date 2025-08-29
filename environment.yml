@@ -1,0 +1,11 @@
+name: similarity-metrics
+channels:
+  - defaults
+dependencies:
+  - python
+  - numpy
+  - matplotlib
+  - seaborn
+  - jupyter
+  - pandas
+  - plotly
