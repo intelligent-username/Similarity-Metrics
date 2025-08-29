@@ -89,7 +89,11 @@ Many AI-related applications. For example, it's a good heuristic in finding the 
 
 #### 3. Cosine Similarity
 
-The scalar projection of one vector onto another, normalizing by their lengths. In other words, the cosine similarity measures the cosine of the angle between two vectors, focusing on similarity of orientation alone.
+The scalar projection of one vector onto another, normalizing by their lengths. In other words, the cosine similarity measures the similarity of orientation alone. For example, this is very useful in NLP or recommendations.
+
+![Vector Visualization of Health Risk Data](img/Health_Risks.png)
+
+Cosine similarity doesn't deal with 'distance' per se, but with direction. Still, it is a good measure of similarity and decision-making methods like kNN work just the same with cosine similarity.
 
 $$
 \text{similarity} = \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}
