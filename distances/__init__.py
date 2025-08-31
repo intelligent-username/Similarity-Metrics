@@ -5,3 +5,4 @@ from .manh import manhattan_distance
 from .cos_sim import cosine_similarity
 from .mink import minkowski_distance
 from .gower import gower_distance
+from .jac import jaccard_distance

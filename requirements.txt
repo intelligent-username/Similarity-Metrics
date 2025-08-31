@@ -5,3 +5,4 @@ jupyter
 pandas
 plotly
 scikit-learn
+bio

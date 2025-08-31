@@ -11,12 +11,14 @@ try:
     from .cos_sim import cosine_similarity
     from .mink import minkowski_distance
     from .gower import gower_distance
+    from .jac import jaccard_distance
 except ImportError:
     from euc import euclidean_distance
     from manh import manhattan_distance
     from cos_sim import cosine_similarity
     from mink import minkowski_distance
     from gower import gower_distance
+    from jac import jaccard_distance
 
 def make_distance_matrix(data, metric='gower', p=3, data_range=None) -> np.ndarray:
     """
@@ -32,6 +34,7 @@ def make_distance_matrix(data, metric='gower', p=3, data_range=None) -> np.ndarr
         'euclidean': euclidean_distance,
         'manhattan': manhattan_distance,
         'cosine':    lambda a, b: 1.0 - cosine_similarity(a, b),  # distance in [0, 1]
+        'jaccard': jaccard_distance
     }
 
     n = data.shape[0]
@@ -84,6 +87,8 @@ if __name__ == "__main__":
     print("Cosine similarity is", cosine_similarity(p1, p2))
     print("Minkowski distance (p=3) is", minkowski_distance(p1, p2, p=3))
     print("Gower distance is", gower_distance(p1, p2, [3,3,3]))
-    print("All distances computed successfully.")
+    print("Jaccard distance is", jaccard_distance(p1, p2))
+    
+    print("All distance metrics work.")
 
 
