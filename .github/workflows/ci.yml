@@ -60,4 +60,4 @@ jobs:
           pip install numpy
       - name: Import sanity (ensures package loads)
         run: |
-          python -c "import sys,importlib; print('Python version', sys.version);\nimport distances; print('Exported symbols:', [a for a in dir(distances) if a.endswith('_distance') or 'cosine' in a])"
+          python -c "import sys,importlib,distances; print('Python version', sys.version); print('Exported symbols:', [a for a in dir(distances) if a.endswith('_distance') or 'cosine' in a])"
