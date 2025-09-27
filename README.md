@@ -1,6 +1,28 @@
 # Similarity Metrics
 
-In this repository are stored a bunch of utilities for calculating the similarity between two datapoints
+[![CI](https://github.com/intelligent-username/Similarity-Metrics/actions/workflows/ci.yml/badge.svg)](https://github.com/intelligent-username/Similarity-Metrics/actions/workflows/ci.yml)
+
+Utilities for calculating and visualizing similarity / distance between datapoints.
+
+## Table of Contents
+
+- [Similarity Metrics](#similarity-metrics)
+  - [Table of Contents](#table-of-contents)
+  - [Applications](#applications)
+  - [Usage](#usage)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Quick Start](#quick-start)
+  - [Features](#features)
+    - [Metrics](#metrics)
+      - [1. Euclidean Distance](#1-euclidean-distance)
+      - [2. Manhattan Distance](#2-manhattan-distance)
+      - [3. Cosine Similarity](#3-cosine-similarity)
+      - [4. Minkowski Distance](#4-minkowski-distance)
+    - [5. Gower Distance](#5-gower-distance)
+    - [6. Jaccard Distance](#6-jaccard-distance)
+    - [Visualizations](#visualizations)
+  - [License](#license)
 
 <!-- markdownlint-disable MD033 -->
 <img src="img/iris-3d-only.png" alt="3D Visualization of Iris Flower Database" width="400">
@@ -57,6 +79,35 @@ This project should help the reader build an intuition to bridge the gap between
 
 3. Create your own distance visualizations using custom datasets: call `distance_matrix.py` with your dataset and desired metric.
 
+### Quick Start
+
+Minimal example calculating several distances and a distance matrix:
+
+```python
+import numpy as np
+from distances import euclidean_distance, manhattan_distance, cosine_similarity, minkowski_distance, gower_distance, jaccard_distance
+from distances.distance_matrix import make_distance_matrix
+
+a = np.array([1,2,3])
+b = np.array([4,6,3])
+print(euclidean_distance(a,b))   # 5.0
+print(manhattan_distance(a,b))   # 7.0
+print(minkowski_distance(a,b,3)) # ~4.4979
+print(cosine_similarity(a,b))    # orientation similarity in [-1,1]
+
+data = np.vstack([a,b])
+dm = make_distance_matrix(data, metric='euclidean')
+print(dm)
+
+# Jaccard & Gower examples
+set1, set2 = {1,2,3}, {2,3,4}
+print(jaccard_distance(set1, set2))  # 0.5
+mixed1 = np.array([1,'cat',3], dtype=object)
+mixed2 = np.array([4,'dog',6], dtype=object)
+ranges = np.array([3,0,3])
+print(gower_distance(mixed1, mixed2, ranges))  # 1.0
+```
+
 ## Features
 
 ### Metrics
@@ -71,21 +122,21 @@ Used in most of math.
 
 #### 2. Manhattan Distance
 
-Also known as taxicab or L1 distance. Measures the sum of absolute differences between coordinates, like navigating city blocks, most useful with sparse data:
+Also known as taxicab or L1 distance. Measures the sum of absolute differences between coordinates, like navigating city blocks; useful with sparse data:
 
 $$
 d = |x_2 - x_1| + |y_2 - y_1|
 $$
 
-For n-dimensional space:
+General n-dimensional form:
 
 $$
 d = \sum_{i=1}^{n} |x_i - y_i|
 $$
 
-Bounded on $[-1, 1]$
+Unbounded above (non‑negative, grows linearly with coordinate differences).
 
-Many AI-related applications. For example, it's a good heuristic in finding the shortest path to navigate through a maze. Also, it's more computationally efficient than Euclidean distance, but with similar functionality.
+Applications include pathfinding heuristics (A* on grids), feature distance in high-dimensional sparse vectors, and as the p=1 special case of Minkowski.
 
 #### 3. Cosine Similarity
 
@@ -100,6 +151,8 @@ $$
 $$
 
 This formula fuels search engines and match-making/similarity-ranking algorithms.
+
+Range: [-1, 1] (1 identical direction, 0 orthogonal, -1 opposite). For distance-style usage in this project we convert to a distance as 1 - cosine_similarity.
 
 #### 4. Minkowski Distance
 
@@ -123,7 +176,7 @@ Where:
 
 ### 5. Gower Distance
 
-A method of measuring the **dissimilarity** of two datapoints that contain mixed datatypes. The distance is noramlized between $0$ and $1$. $1$ is completely dissimilar and $0$ is identical.
+A method of measuring the **dissimilarity** of two datapoints that contain mixed datatypes. The distance is normalized between $0$ and $1$. $1$ is completely dissimilar and $0$ is identical.
 
 The formula for this distance is as follows:
 
@@ -184,3 +237,7 @@ Some of the features of the demos include:
 - Comparing how different metrics behave on the same dataset
 - Understanding the impact of different distance metrics on clustering and classification tasks
 - Visualizing with scatter plots to compare.
+
+## License
+
+Released under the MIT License. See the `LICENSE` file for details.
