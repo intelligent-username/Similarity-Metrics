@@ -2,7 +2,10 @@
 
 [![CI](https://github.com/intelligent-username/Similarity-Metrics/actions/workflows/ci.yml/badge.svg)](https://github.com/intelligent-username/Similarity-Metrics/actions/workflows/ci.yml)
 
-Utilities for calculating and visualizing similarity / distance between datapoints.
+Utilities for calculating & visualizing the similarity/distance between datapoints.
+The idea of distance metrics is adjacent to [Loss Functions](https://github.com/intelligent-username/Loss-Functions)
+
+![Cover](cover.jpg)
 
 ## Table of Contents
 
